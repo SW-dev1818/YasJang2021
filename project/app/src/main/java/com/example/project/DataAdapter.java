@@ -15,7 +15,6 @@ public class DataAdapter {
 
     // TODO : TABLE 이름을 명시해야함
     protected static final String TABLE_NAME = "gym";
-
     private final Context mContext;
     private SQLiteDatabase mDb;
     private DataBaseHelper mDbHelper;
@@ -86,9 +85,11 @@ public class DataAdapter {
                     // TODO : Record 기술
                     // id, name, account, privateKey, secretKey, Comment
                     gym.setName(mCur.getString(0));
-                    gym.setLatitude(mCur.getDouble(1));
-                    gym.setLongitude(mCur.getDouble(2));
-                    gym.setState(mCur.getString(3));
+                    gym.setAddress(mCur.getString(1));
+                    gym.setLatitude(mCur.getDouble(2));
+                    gym.setLongitude(mCur.getDouble(3));
+                    gym.setState((mCur.getString(4)));
+                    gym.setNumber((mCur.getString(5)));
 
                     // 리스트에 넣기
                     GymList.add(gym);

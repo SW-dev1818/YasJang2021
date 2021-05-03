@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LobbyActivity extends AppCompatActivity {
     Button Lobby_btn;
-    Button timer_btn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +25,5 @@ public class LobbyActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 }

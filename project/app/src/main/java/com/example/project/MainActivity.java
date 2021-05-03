@@ -3,7 +3,6 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-
 import android.annotation.SuppressLint;
 import android.graphics.PointF;
 import android.os.Bundle;
@@ -18,7 +17,6 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.gson.internal.bind.ArrayTypeAdapter;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
@@ -35,13 +33,12 @@ import com.naver.maps.map.overlay.InfoWindow;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.Overlay;
 import com.naver.maps.map.util.FusedLocationSource;
-
 import org.w3c.dom.Text;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +49,8 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
     public String state;
     public double latitude;
     public double longitude;
+    public String address;
+    public String number;
     public double lat;
     public double lon;
     public Marker marker;
@@ -60,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
     SearchView searchView;
     CameraPosition cameraPosition;
     NaverMapOptions options;
-
     private InfoWindow infoWindow;
     private  static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
     private FusedLocationSource locationSource;
@@ -195,21 +193,21 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
             public CharSequence getText(@NonNull InfoWindow infoWindow) {
                 Marker marker = infoWindow.getMarker();
                 GymSample gyms = (GymSample)marker.getTag();
-                return gyms.getName() + "\n" + gyms.getState();
+                return gyms.getName() + "\n"+gyms.getAddress()+"\n" +
+                      gyms.getState()+ "\n"+"업체번호: "+gyms.getNumber();
             }
         });
 
         //마커생성
         if(GymList.size() > 0){
             for(GymSample gyms : GymList){
-
                 name = gyms.getName();
                 latitude = gyms.getLatitude();
                 longitude = gyms.getLongitude();
                 state = gyms.getState();
-
+                address = gyms.getAddress();
+                number = gyms.getNumber();
                 marker = new Marker();
-
                 marker.setTag(gyms);
                 marker.setPosition(new LatLng(latitude,longitude));
                 marker.setMap(naverMap);
@@ -218,6 +216,7 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
         }
 
     }
+
     //마커 눌렀을때 이벤트 리스너
     @Override
     public boolean onClick(@NonNull Overlay overlay) {
