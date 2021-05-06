@@ -1,4 +1,4 @@
-package com.sungs.project;
+package com.example.project;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -25,7 +25,7 @@ public class DataAdapter {
         mDbHelper = new DataBaseHelper(mContext);
     }
 
-    public com.sungs.project.DataAdapter createDatabase() throws SQLException
+    public com.example.project.DataAdapter createDatabase() throws SQLException
     {
         try
         {
@@ -39,7 +39,7 @@ public class DataAdapter {
         return this;
     }
 
-    public com.sungs.project.DataAdapter open() throws SQLException
+    public com.example.project.DataAdapter open() throws SQLException
     {
         try
         {

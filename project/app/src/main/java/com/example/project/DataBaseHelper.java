@@ -1,4 +1,4 @@
-package com.sungs.project;
+package com.example.project;
 
 import android.content.Context;
 import android.database.SQLException;

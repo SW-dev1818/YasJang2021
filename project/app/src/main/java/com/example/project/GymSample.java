@@ -1,4 +1,4 @@
-package com.sungs.project;
+package com.example.project;
 
 public class GymSample {
     private String name;
