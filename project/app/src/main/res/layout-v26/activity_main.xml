@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:visibility="visible">
+
+    <SearchView
+        android:id="@+id/search_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/bg_round"
+        android:layout_marginRight="20dp"
+        android:elevation="5dp"
+        android:iconifiedByDefault="true"
+        android:queryHint="시설명을 입력하세요"
+        tools:targetApi="lollipop">
+    </SearchView>
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.naver.maps.map.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@android:layout/preference_category" />
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="290dp"
+        android:layout_height="190dp"
+        android:layout_below="@+id/search_view"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="45dp"
+        android:background="#FFFFFF"
+        android:visibility="gone"></ListView>
+
+</RelativeLayout>
+
