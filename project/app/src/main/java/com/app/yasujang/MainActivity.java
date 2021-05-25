@@ -37,8 +37,6 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
     public String state;
     public String address;
     public String number;
-    public double lat;
-    public double lon;
     public Marker marker;
     public  NaverMap naverMap;
     ListView listView;
@@ -169,6 +167,7 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
         infoWindow = new InfoWindow();
+
         infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(this) {
 
             @NonNull
@@ -199,6 +198,8 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
             }
         }
     }
+
+    //마커 지우기
     private void  resetMarkerList(){
         if(MarkerList != null && MarkerList.size() >0){
             for(Marker marker : MarkerList){
