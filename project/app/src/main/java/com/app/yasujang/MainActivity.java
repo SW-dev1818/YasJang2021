@@ -2,10 +2,7 @@ package com.app.yasujang;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cursoradapter.widget.CursorAdapter;
 import androidx.fragment.app.FragmentManager;
-
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,12 +28,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements Overlay.OnClickListener, OnMapReadyCallback {
 
-    public List<GymSample> GymList = new ArrayList<>();
-    public List<Marker>MarkerList =new ArrayList<>();
-    public String name;
-    public String state;
-    public String address;
-    public String number;
+    public List<GymSample>GymList = new ArrayList<>();
+    public List<Marker>MarkerList = new ArrayList<>();
     public Marker marker;
     public  NaverMap naverMap;
     ListView listView;
@@ -75,9 +68,9 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    listView.setVisibility(View.VISIBLE);
+                    listView.setVisibility(v.VISIBLE);
                 }else{
-                    listView.setVisibility(View.GONE);
+                    listView.setVisibility(v.GONE);
                 }
             }
         });
@@ -113,8 +106,9 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
                      new LatLng(latitude, longitude),18)
                      .animate(CameraAnimation.Fly, 3000);
                 naverMap.moveCamera(cameraUpdate);
-                listView.setVisibility(View.GONE);
                 searchView.setIconified(true);
+
+
             }
         });
 
@@ -176,7 +170,7 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
                 Marker marker = infoWindow.getMarker();
                 GymSample gyms = (GymSample)marker.getTag();
                 return gyms.getName() + "\n" + gyms.getAddress() + "\n" +
-                    gyms.getState() + "\n" + "업체번호: "+ gyms.getNumber();
+                       gyms.getState() + "\n"+ "업체번호: "+ gyms.getNumber();
             }
         });
 
@@ -184,12 +178,8 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
         if(GymList.size() > 0 ){
             resetMarkerList();
             for(GymSample gyms : GymList){
-                name = gyms.getName();
                 double latitude = gyms.getLatitude();
                 double longitude = gyms.getLongitude();
-                state = gyms.getState();
-                address = gyms.getAddress();
-                number = gyms.getNumber();
                 marker = new Marker();
                 marker.setTag(gyms);
                 marker.setPosition(new LatLng(latitude,longitude));

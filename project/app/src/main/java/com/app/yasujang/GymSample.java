@@ -4,7 +4,7 @@ public class GymSample {
     private String name;
     private double latitude;
     private double longitude;
-    private  String address;
+    private String address;
     private String state;
     private String number;
 
