@@ -10,8 +10,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
+import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -99,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
                 Object obj = (Object) AdapterView.getItemAtPosition(position);
                 position = GymList.indexOf(obj);
                 Log.d("클릭","포지션: " + obj);
-                marker.setZIndex(10);
                 double latitude = GymList.get(position).getLatitude();
                 double longitude = GymList.get(position).getLongitude();
                 CameraUpdate cameraUpdate = CameraUpdate.scrollAndZoomTo(
@@ -107,8 +108,6 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
                      .animate(CameraAnimation.Fly, 3000);
                 naverMap.moveCamera(cameraUpdate);
                 searchView.setIconified(true);
-
-
             }
         });
 
@@ -145,32 +144,44 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
         )){
             return;
         }
-        super.onRequestPermissionsResult(
-                requestCode, permissions, grantResults
-        );
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     //네이버맵
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         this.naverMap = naverMap;
-        naverMap.setMinZoom(13);
-        naverMap.setMaxZoom(18);
+
         UiSettings uiSettings = naverMap.getUiSettings();
         uiSettings.setLocationButtonEnabled(true);
         naverMap.setLocationSource(locationSource);
         naverMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+        LatLng mapCenter = naverMap.getCameraPosition().target;
+        
+
         infoWindow = new InfoWindow();
-
-        infoWindow.setAdapter(new InfoWindow.DefaultTextAdapter(this) {
-
+        infoWindow.setAdapter(new InfoWindow.DefaultViewAdapter(this) {
             @NonNull
+            @org.jetbrains.annotations.NotNull
             @Override
-            public CharSequence getText(@NonNull InfoWindow infoWindow) {
+            protected View getContentView(@NonNull @org.jetbrains.annotations.NotNull InfoWindow infoWindow) {
                 Marker marker = infoWindow.getMarker();
                 GymSample gyms = (GymSample)marker.getTag();
-                return gyms.getName() + "\n" + gyms.getAddress() + "\n" +
-                       gyms.getState() + "\n"+ "업체번호: "+ gyms.getNumber();
+                View view = View.inflate(MainActivity.this,R.layout.view_info_window,null);
+
+                TextView Name = (TextView) view.findViewById(R.id.name);
+                Name.setText(gyms.getName());
+
+                TextView State = (TextView) view.findViewById(R.id.state);
+                State.setText(gyms.getState());
+
+                TextView Address = (TextView) view.findViewById(R.id.ad);
+                Address.setText(gyms.getAddress());
+
+                TextView Number = (TextView) view.findViewById(R.id.number);
+                Number.setText(gyms.getNumber());
+
+                return view;
             }
         });
 
@@ -187,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
                 marker.setOnClickListener(this);
             }
         }
+
     }
 
     //마커 지우기
@@ -198,7 +210,6 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
             MarkerList.clear();
         }
     }
-
 
     //마커 눌렀을때 이벤트 리스너
     @Override
