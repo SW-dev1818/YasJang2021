@@ -13,7 +13,6 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import com.naver.maps.geometry.LatLng;
 import com.naver.maps.map.CameraAnimation;
-import com.naver.maps.map.CameraPosition;
 import com.naver.maps.map.CameraUpdate;
 import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
@@ -162,9 +161,9 @@ public class MainActivity extends AppCompatActivity implements Overlay.OnClickLi
         infoWindow = new InfoWindow();
         infoWindow.setAdapter(new InfoWindow.DefaultViewAdapter(this) {
             @NonNull
-            @org.jetbrains.annotations.NotNull
+
             @Override
-            protected View getContentView(@NonNull @org.jetbrains.annotations.NotNull InfoWindow infoWindow) {
+            protected View getContentView(@NonNull InfoWindow infoWindow) {
                 Marker marker = infoWindow.getMarker();
                 GymSample gyms = (GymSample)marker.getTag();
                 View view = View.inflate(MainActivity.this,R.layout.view_info_window,null);
